@@ -34,7 +34,10 @@ export class UserCardsComponent implements OnInit {
 
   onUserUpdated(user: User){
     console.log('on user updates - parent');
-    const updatedUser = this._userService.updateUser(user);
+    this._userService.updateUser(user).catch(error => {
+      console.log(error.message);
+      this._errorMsg = error.message;
+    });
     //updatedUser.subscribe(val => console.log('updated on component = ' + val.name));
   }
 

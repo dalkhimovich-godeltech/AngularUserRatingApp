@@ -35,7 +35,7 @@ export class UserService {
     );
   }
 
-  public updateUser(user: User): Observable<User> {
+  public updateUser(user: User): Promise<User> {
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -47,10 +47,8 @@ export class UserService {
     return this._http.put<User>(this._url + user.id, user.stringify(), httpOptions)
       .pipe(
         map((data: User) => User.ConvertFromJson(data)),
-        publishReplay(1),
-        refCount(),
         catchError(this.errorHandler)
-        );
+        ).toPromise();
   }
 
   errorHandler(error: HttpErrorResponse): Observable<never> {
