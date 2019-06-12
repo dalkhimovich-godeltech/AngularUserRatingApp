@@ -1,0 +1,70 @@
+<div class="row top-buffer">
+    <div class="col-xs-4">
+        <h2>{{user.name | uppercase}}</h2>
+        <input
+            type="button"
+            [value]="editButtonTitle"
+            (click)=editName(user.name)
+        >
+        &nbsp;
+        <input
+            type="text"
+            [(ngModel)]="user.name"
+            [hidden]='isEditNameInputVisible()'
+        >
+        <br>
+        <div>
+            <span>Age:</span>
+            {{user.age}}
+        </div>
+    </div>
+    <div class="col-xs-2">
+        <h3>Skills</h3>
+        <ul class="heroes">
+            <li *ngFor="let skill of user.skills">
+                <span>{{skill}}</span>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="row top-buffer">
+    <div
+        class='rate'
+        [ngClass]="getRateDivClass()"
+    >
+        <span>Rate:</span>
+        {{user.rate | likes}}
+    </div>
+</div>
+<div class="row  top-buffer">
+    <div class="col-xs-1">
+        <input
+            type="button"
+            id='like'
+            value="Like"
+            (click)=like()
+            [hidden]='isLikeButtonHidden()'
+        >
+    </div>
+    <div class="col-xs-1">
+        <input
+            type="button"
+            id='dislike'
+            value="Dislike"
+            (click)=dislike(user)
+            [hidden]='isDislikeButtonHidden()'
+        >
+    </div>
+</div>
+<div class="row top-buffer">
+    <div class="col-xs-2">
+        <input
+            type="button"
+            id='update'
+            value="Update"
+            (click)=this.updateUser(user)
+        >
+    </div>
+</div>
+
+<hr>
