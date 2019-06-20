@@ -1,11 +1,23 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
   <h1>
-    Welcome to {{ title }}!
+    User Rating Application
   </h1>
 
 
 </div>
-<app-user-cards></app-user-cards>
+<div class="container">
+<nav>
+  <div class="row">
+    <div class="col-xs-1">
+        <a routerLink="/home" routerLinkActive="active">Home</a>
+    </div>
+    <div class="col-xs-1">
+        <a routerLink="/users" routerLinkActive="active">Users</a>
+    </div>
+  </div>
+
+</nav>
 
 <router-outlet></router-outlet>
+</div>

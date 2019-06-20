@@ -4,6 +4,7 @@ import { User } from '../user-card/user';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { error } from 'util';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-user-cards',
@@ -23,7 +24,7 @@ export class UserCardsComponent implements OnInit {
     return this._errorMsg;
   }
 
-  constructor(private _userService: UserService) {}
+  constructor(private _userService: UserService, private router: Router) {}
 
   ngOnInit() {
     this._users$ = this._userService.getUsers().pipe(
@@ -39,6 +40,10 @@ export class UserCardsComponent implements OnInit {
       this._errorMsg = error.message;
     });
     //updatedUser.subscribe(val => console.log('updated on component = ' + val.name));
+  }
+
+  onSelect(user: User){
+    this.router.navigate(['/user', user.id ]);
   }
 
 }

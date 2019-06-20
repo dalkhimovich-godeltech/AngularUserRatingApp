@@ -35,6 +35,13 @@ export class UserService {
     );
   }
 
+  public getUser(userId: number): Promise<User> {
+    return this._http.get<User>(this._url + userId).pipe(
+      map((data: User) => User.ConvertFromJson(data)),
+      catchError(this.errorHandler)
+    ).toPromise();
+  }
+
   public updateUser(user: User): Promise<User> {
 
     const httpOptions = {

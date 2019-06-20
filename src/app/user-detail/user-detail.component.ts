@@ -1,17 +1,24 @@
-import { Component, OnInit, Input, EventEmitter, Output  } from '@angular/core';
-import { User } from './user';
-import { LikesPipe } from '../pipes/helper.pipes';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute} from '@angular/router';
+import { User } from '../user-card/user';
+import { UserService } from '../user.service';
+import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-user-card',
-  templateUrl: './user-card.component.html',
-  styleUrls: ['./user-card.component.css']
+  selector: 'app-user-detail',
+  templateUrl: './user-detail.component.html',
+  styleUrls: ['./user-detail.component.css']
 })
-export class UserCardComponent implements OnInit {
+export class UserDetailComponent implements OnInit {
 
-  @Input() user: User;
-  @Output() userUpdated = new EventEmitter<User>();
+  private _userId: number;
+  private _user: User;
+  private _errorMsg: string;
+
+  get user(): User {
+    return this._user;
+  }
+
   private _editButtonTitle: string = "Edit Name";
   private _userNameInputValue: string;
 
@@ -19,10 +26,11 @@ export class UserCardComponent implements OnInit {
     return this._editButtonTitle;
   }
 
-  constructor(private router: Router) {
-  }
+  constructor(private _userService: UserService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    const id = parseInt(this.route.snapshot.paramMap.get('id'));
+    this._userService.getUser(id).then((res) => {this._user = res; });
   }
 
   public like(): void {
@@ -59,13 +67,11 @@ export class UserCardComponent implements OnInit {
     return 'yellow';
   }
 
-  public updateUser(user: User){
-    console.log('update user - child');
-    this.userUpdated.emit(user);
+  updateUser(user: User){
+    console.log('on user updates - detail');
+    this._userService.updateUser(user).catch(error => {
+      console.log(error.message);
+      this._errorMsg = error.message;
+    });
   }
-
-  onSelect(user: User){
-    this.router.navigate(['/users', user.id ]);
-  }
-
 }
