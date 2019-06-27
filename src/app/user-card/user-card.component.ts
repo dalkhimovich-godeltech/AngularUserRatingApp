@@ -1,7 +1,8 @@
-import { Component, OnInit, Input, EventEmitter, Output  } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { User } from './user';
 import { LikesPipe } from '../pipes/helper.pipes';
-import { Router, ActivatedRoute} from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { RateStyles } from '../RateStyles';
 
 @Component({
   selector: 'app-user-card',
@@ -11,6 +12,7 @@ import { Router, ActivatedRoute} from '@angular/router';
 export class UserCardComponent implements OnInit {
 
   @Input() user: User;
+  @Input() rateDiff: number;
   @Output() userUpdated = new EventEmitter<User>();
   private _editButtonTitle: string = "Edit Name";
   private _userNameInputValue: string;
@@ -19,7 +21,7 @@ export class UserCardComponent implements OnInit {
     return this._editButtonTitle;
   }
 
-  constructor(private router: Router) {
+  constructor(private _router: Router, private _route: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -33,7 +35,7 @@ export class UserCardComponent implements OnInit {
     user.decreaseRate();
   }
 
-  public editName(userName: string):void {
+  public editName(userName: string): void {
     this._editButtonTitle === "Edit Name" ? this._editButtonTitle = "Stop Edit Name" : this._editButtonTitle = "Edit Name";
   }
 
@@ -50,22 +52,36 @@ export class UserCardComponent implements OnInit {
   }
 
   public getRateDivClass(): string {
-    if (this.user.rate < -5){
-      return 'red';
-    } else if (this.user.rate > 5){
-      return 'green';
+    if (this.user.rate < -5) {
+      return RateStyles[RateStyles.Red];
+    } else if (this.user.rate > 5) {
+      return RateStyles[RateStyles.Green];
     }
 
-    return 'yellow';
+    return RateStyles[RateStyles.Yellow];
   }
 
-  public updateUser(user: User){
+  public updateUser(user: User) {
     console.log('update user - child');
     this.userUpdated.emit(user);
   }
 
-  onSelect(user: User){
-    this.router.navigate(['/users', user.id ]);
+  onSelect(user: User) {
+    this._router.navigate([user.id], {relativeTo: this._route});
+  }
+
+  public getBackRateCssClass(): string {
+    if (this.rateDiff === undefined) {
+      return undefined;
+    }
+    if (this.rateDiff > 0) {
+      return RateStyles.Green;
+    } else if (this.rateDiff < 0) {
+      return RateStyles.Red;
+    }
+
+    return RateStyles.Yellow;
+
   }
 
 }

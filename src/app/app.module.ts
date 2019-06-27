@@ -12,6 +12,8 @@ import { LikesPipe } from './pipes/helper.pipes';
 import { HomeComponent } from './home/home.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
+import { UserOverviewComponent } from './user-overview/user-overview.component';
+import { UserRatingComponent } from './user-rating/user-rating.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
     LikesPipe,
     HomeComponent,
     PagenotfoundComponent,
-    UserDetailComponent
+    UserDetailComponent,
+    UserOverviewComponent,
+    UserRatingComponent
 
   ],
   imports: [

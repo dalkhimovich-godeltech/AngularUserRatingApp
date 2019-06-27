@@ -1,66 +1,10 @@
 <div class="row top-buffer">
-<h3 (click)="onSelect(user)"><a>{{user.name | uppercase}}</a></h3>
-</div>
-
-<!-- <div class="row top-buffer">
-    <div class="col-xs-4">
-        <h3 (click)="onSelect(user)"><a>{{user.name | uppercase}}</a></h3>
-        <input
-            type="button"
-            [value]="editButtonTitle"
-            (click)=editName(user.name)
+    <div class="col-md-4">
+        <h3
+            (click)="onSelect(user)"
+            [ngClass]="getBackRateCssClass()"
         >
-        &nbsp;
-        <input
-            type="text"
-            [(ngModel)]="user.name"
-            [hidden]='isEditNameInputVisible()'
-        >
-        <br>
-        <div>
-            <span>Age:</span>
-            {{user.age}}
-        </div>
+            <a>{{user.name | uppercase}}</a>
+        </h3>
     </div>
 </div>
-<div class="row top-buffer">
-    <div
-        class='rate'
-        [ngClass]="getRateDivClass()"
-    >
-        <span>Rate:</span>
-        {{user.rate | likes}}
-    </div>
-</div>
-<div class="row  top-buffer">
-    <div class="col-xs-1">
-        <input
-            type="button"
-            id='like'
-            value="Like"
-            (click)=like()
-            [hidden]='isLikeButtonHidden()'
-        >
-    </div>
-    <div class="col-xs-1">
-        <input
-            type="button"
-            id='dislike'
-            value="Dislike"
-            (click)=dislike(user)
-            [hidden]='isDislikeButtonHidden()'
-        >
-    </div>
-</div>
-<div class="row top-buffer">
-    <div class="col-xs-2">
-        <input
-            type="button"
-            id='update'
-            value="Update"
-            (click)=this.updateUser(user)
-        >
-    </div>
-</div>
-
-<hr> -->

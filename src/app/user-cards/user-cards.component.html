@@ -3,7 +3,7 @@
     <h3>{{errorMsg}}</h3>
     <app-user-card
         *ngFor="let user of users$ | async"
-        [user]="user" (userUpdated)="onUserUpdated($event)"
+        [user]="user" [rateDiff]="getRateDiffForUser(user)" (userUpdated)="onUserUpdated($event)"
     >
     </app-user-card>
 </div>

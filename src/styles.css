@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+.rate {width: 120px;  padding: 5px;}
+.yellow{
+  background-color: #f8f8cf;
+}
+.red{
+    background-color: #fce6e6;
+}
+
+.green{
+    background-color:#cbf1cb;
+}
+
+.top-buffer { margin-top:20px; }

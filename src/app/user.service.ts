@@ -55,7 +55,7 @@ export class UserService {
       .pipe(
         map((data: User) => User.ConvertFromJson(data)),
         catchError(this.errorHandler)
-        ).toPromise();
+      ).toPromise();
   }
 
   errorHandler(error: HttpErrorResponse): Observable<never> {
@@ -66,5 +66,31 @@ export class UserService {
   private extractData(res: Response) {
     let body = res.json();
     return body;
+  }
+
+  public getNextId(userId: number): Promise<number> {
+    return this.getUsers().toPromise().then(data => {
+      const el = data.find(e => e.id === userId);
+      if (el) {
+        const index = data.indexOf(el);
+        if (index + 1 < data.length) {
+          return data[index + 1].id;
+        }
+      }
+      return Promise.reject('Next user for id = ' + userId + ' not found');
+    });
+  }
+
+  public getPrevId(userId: number): Promise<number> {
+    return this.getUsers().toPromise().then(data => {
+      const el = data.find(e => e.id === userId);
+      if (el) {
+        const index = data.indexOf(el);
+        if (index > 0) {
+          return data[index - 1].id;
+        }
+      }
+      return Promise.reject('Previous user for id = ' + userId + ' not found');
+    });
   }
 }

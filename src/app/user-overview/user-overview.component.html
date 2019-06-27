@@ -1,0 +1,17 @@
+<div class="row top-buffer">
+  <div class="col-xs-4">
+
+      <div>
+          <span>Age:</span>
+          {{user.age}}
+      </div>
+  </div>
+  <div class="col-xs-2">
+      <h3>Skills</h3>
+      <ul class="heroes">
+          <li *ngFor="let skill of this.user.skills">
+              <span>{{skill}}</span>
+          </li>
+      </ul>
+  </div>
+</div>
